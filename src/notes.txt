@@ -1,0 +1,32 @@
+/*   
+   Header
+        - Logo
+        - Nav Items(Right Side)
+        - Cart
+    Body
+       - Search bar
+       - RestrauntList
+         - ReastaurantCard
+             - Image
+             - Name
+             - Rating
+             - Cusines
+            
+    Footer
+     - links
+     - Copyright
+
+
+*/
+
+// Default Import
+import Header from './components/Header';
+
+
+
+// Named Import
+// import { Title } from './components/Header';
+
+// if we export all then
+// import * as Obj from "./components/Header";
+// use it like --> obj.Title
