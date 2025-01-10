@@ -12,8 +12,9 @@ const Title = () => {
     return (
        <div>
 
+
         <a href="/">
-         <img className='logo' alt="Logo"  src={Logo} />
+         <img className="h-28 p-2 ml-2 mt-1 " alt="Logo"  src={Logo} />
          {/* <h1 id='title'>Food Villa</h1> */}
          </a>
        </div>
@@ -24,26 +25,26 @@ const Title = () => {
 const Header = () =>{
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-
+ 
   return (
-  <div className='header'>
+  <div className='flex justify-between h-32 bg-pink-50 shadow-lg '>
       <Title/>
       
       <div className='nav-items'>
-        <ul>
-           <li> <Link to="/">Home</Link></li>
-           <li> <Link to="/about">About</Link></li>
-           <li> <Link to="/contact">Contact</Link></li>
-           <li>Cart</li>
-           <li> <Link to="/instamart">Instamart </Link></li>
+        <ul className="flex  py-11 ">
+           <li className="px-2"> <Link to="/">Home</Link></li>
+           <li className="px-2"> <Link to="/about">About</Link></li>
+           <li className="px-2"> <Link to="/contact">Contact</Link></li>
+           <li className="px-2">Cart</li>
+           <li className="px-2"> <Link to="/instamart">Instamart </Link></li>
             </ul>
       </div>
      
 
      {
       isLoggedIn ? 
-      <button onClick={() => setIsLoggedIn(false)}>Logout</button> : 
-      <button onClick={() => setIsLoggedIn(true)}>Login</button>
+      <button onClick={() => setIsLoggedIn(false)} className="p-5" >Logout</button> : 
+      <button onClick={() => setIsLoggedIn(true)} className='p-5'>Login</button>
      }
       
    </div>
@@ -51,3 +52,7 @@ const Header = () =>{
 }
 
 export default Header;
+
+
+
+  // <div className='flex justify-between h-32 bg-pink-50 shadow-lg sm:bg-blue-50 md:bg-yellow-50'

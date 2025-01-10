@@ -48,7 +48,9 @@ const Body = () => {
       return <h1>Offline, Please check Your internet connection !!</h1>
     }
 
-   
+  
+    
+
     console.log("render")
 
     // not render component (Early Return)
@@ -61,10 +63,10 @@ const Body = () => {
     
     return (allRestaurant.length === 0) ? <Shimmer/> :   (  
        <>
-       <div className='search-container'>
+       <div className='search-container p-5 bg-pink-50 my-5'>
 
         <input type="text" 
-        className='search-input' 
+        className='p-2 m-2 rounded-md hover:bg-green-100' 
         placeholder='Search' 
         value={searchInput} 
         onChange={(e) => {
@@ -74,7 +76,7 @@ const Body = () => {
 
 
        <button
-         className='search-btn' 
+         className='p-2 m-2 bg-purple-600 text-white rounded-md hover:bg-purple-900' 
          onClick={() =>{
 
           // need to filter the data
@@ -88,13 +90,13 @@ const Body = () => {
        </div>
 
        
-      <div className='restaurant-list'> 
+      <div className='flex flex-wrap' > 
       {
         (filterRestaurants?.length) === 0 ? filterlength() :
         filterRestaurants?.map(restaurant => {
           return (  
-        <Link to={"/resturant/" + restaurant.info.id} key={restaurant.info.id}>
-          <ReastaurantCard {...restaurant.info}  />
+        <Link to={"/resturant/" + restaurant.info.id} key={restaurant.info.id} >
+          <ReastaurantCard {...restaurant.info} />
           </Link>
           )
        })
