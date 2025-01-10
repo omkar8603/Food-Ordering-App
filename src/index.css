@@ -3,11 +3,13 @@
   display: flex;
   justify-content: space-between;
   border: 1px solid black;
+  background-color: rgb(237, 181, 190);
 }
 
 .nav-items > ul{
     list-style-type: none;
     display: flex;
+    
 }
 
 .nav-items >ul > li {
