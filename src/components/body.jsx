@@ -62,8 +62,8 @@ const Body = () => {
    
     
     return (allRestaurant.length === 0) ? <Shimmer/> :   (  
-       <>
-       <div className='search-container p-5 bg-pink-50 my-5'>
+       <div className='overflow-x-hidden'>
+       <div className='search-container p-2 bg-pink-50 my-3 sticky top-[20px] z-10'>
 
         <input type="text" 
         className='p-2 m-2 rounded-md hover:bg-green-100' 
@@ -90,7 +90,7 @@ const Body = () => {
        </div>
 
        
-      <div className='flex flex-wrap' > 
+      <div className='flex sm:flex-wrap  overflow-x-auto ' > 
       {
         (filterRestaurants?.length) === 0 ? filterlength() :
         filterRestaurants?.map(restaurant => {
@@ -102,7 +102,7 @@ const Body = () => {
        })
       }
       </div>
-      </>
+      </div>
   
     )
   }   
