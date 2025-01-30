@@ -1,5 +1,5 @@
 // App.js
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect, lazy, Suspense, useState, createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import Body from './components/body';
 import Footer from './components/footer';
@@ -10,6 +10,7 @@ import Contact from './components/contact';
 import RestaurantMenu from './components/RestauirantMenu';
 import Profile from './components/ProfileClass.jsx';
 import ShimmerLoader from './components/shimmerUI.jsx';
+import UserContext from './utils/UserContext.jsx';
 // import Instamart from './components/Instamart.jsx';
 
 //Dynamic Import
@@ -19,13 +20,30 @@ const About = lazy(() => import("./components/about.jsx"));
 
 
 const AppLayout = () => {
+
+
+  const [userName, SetUserName] = useState("");
+
+
+  // authentication
+  useEffect( () => {
+    // Make an API call and send username and passward
+  const  data = {
+      name : "Omkar Mane",
+    };
+
+    SetUserName(data.name)
+  },[])
    
   return ( 
-     <> 
+     <UserContext.Provider value={{logedInUser : userName , SetUserName}}> 
+        <div className='app'> 
         <Header/> 
         <Outlet/>
          <Footer/>
-      </>
+
+        </div>
+      </UserContext.Provider>
   )
       
 }
@@ -68,7 +86,7 @@ const appRouter = createBrowserRouter(
         {
           path : "/instamart",
           element : <Suspense fallback={<ShimmerLoader/>}> 
-                    <Instamart/> 
+                   <Instamart/> 
                     </Suspense>,
           errorElement : <Error/>
         }

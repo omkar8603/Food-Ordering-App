@@ -1,7 +1,8 @@
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Logo from "../assets/img/logo.jpg"
 import { Link } from "react-router-dom";  
+import UserContext from "../utils/UserContext";
 
 
 
@@ -9,13 +10,16 @@ import { Link } from "react-router-dom";
 
 
 const Title = () => {
+
+
+ 
     return (
        <div>
 
 
         <a href="/">
-         <img className="h-28 p-2 ml-2 mt-1 " alt="Logo"  src={Logo} />
-         {/* <h1 id='title'>Food Villa</h1> */}
+         <img className="h-28 w-full items-center p-2 ml-2 mt-1 " alt="Logo"  src={Logo} />
+         {/* <h1 className="font-bold text-center">Food Villa</h1> */}
          </a>
        </div>
     )
@@ -25,12 +29,13 @@ const Title = () => {
 const Header = () =>{
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
- 
+  const {logedInUser} = useContext(UserContext);
+
   return (
  
     <div className="bg-blue-50 shadow-md sm:bg-pink-50 sticky top-0 z-10 ">
       <div className="flex flex-col sm:flex-row sm:justify-between items-center sm:items-center h-auto sm:h-32">
-      <div className="w-full sm:w-auto text-center sm:text-left py-4 sm:py-0">
+      <div className="items-center">
           <Title />
         </div>
       
@@ -45,20 +50,20 @@ const Header = () =>{
       </div>
      
 
-      <div className="w-full sm:w-auto flex justify-center sm:justify-end py-4 sm:py-0">
+      <div className="w-full m-2 sm:w-auto flex justify-center sm:justify-end py-4 sm:py-0">
           {isLoggedIn ? (
             <button
               onClick={() => setIsLoggedIn(false)}
-              className="p-3 bg-red-500 text-white rounded"
+              className="p-3 bg-green-500 text-white rounded"
             >
-              Logout
+              Login : {logedInUser}
             </button>
           ) : (
             <button
               onClick={() => setIsLoggedIn(true)}
-              className="p-3 bg-green-500 text-white rounded"
-            >
-              Login
+              className="p-3 bg-red-500 text-white rounded"
+            > 
+              Logout
             </button>
           )}
         </div>

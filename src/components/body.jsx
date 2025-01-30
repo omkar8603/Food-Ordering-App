@@ -1,6 +1,6 @@
 import js from '@eslint/js';
 import {RestrauntList} from  '../constant';
-import ReastaurantCard  from './RestaurantCard'
+import ReastaurantCard, {withPromotedLabel}  from './RestaurantCard'
 import { useState, useEffect } from 'react';
 import Shimmer from './shimmerUI';
 import {Link} from 'react-router-dom';
@@ -8,22 +8,28 @@ import {filterData} from '../utils/helper.jsx'
 import useRestaurantInfo from '../utils/useRestaurantInfo.jsx'
 import {RESTAURANT_INFI_URL} from "../constant";
 import useOnline from '../utils/useOnline.jsx';
+import UserContext from '../utils/UserContext.jsx';
+import { useContext } from 'react';
 
 
 const Body = () => {
+
+  
    // searchText is a local state variable  
    const [allRestaurant, SetAllRestaurant] = useState([])
    const [filterRestaurants , setFilterRestaurants] = useState([]);
    const [searchInput, setsearchInput] = useState("")
 
- 
-   
+   const RestaurantCardPromoted = withPromotedLabel(ReastaurantCard);
+  
    useEffect(() =>{
     console.log("use effect of body")
 
          getRestaurants();
    }, [])
+  
 
+   const {SetUserName, logedInUser} = useContext(UserContext);
    
      async function getRestaurants(){
 
@@ -42,7 +48,7 @@ const Body = () => {
       }
 
     const offline = useOnline();
-    console.log(offline);
+  
 
     if (!offline){
       return <h1>Offline, Please check Your internet connection !!</h1>
@@ -57,20 +63,20 @@ const Body = () => {
     if (!allRestaurant) return null;
    
     function filterlength(){
-      return <h1>Your Input Not Match here !!!</h1>
+      return <h1 className='text-center font-bold'>Your Input Not Match here !!!</h1>
     }
    
     
     return (allRestaurant.length === 0) ? <Shimmer/> :   (  
        <div className='overflow-x-hidden'>
-       <div className='search-container p-2 bg-pink-50 my-3 sticky top-[20px] z-10'>
+       <div className='search-container p-2 bg-pink-50 my-3 flex'>
 
         <input type="text" 
         className='p-2 m-2 rounded-md hover:bg-green-100' 
         placeholder='Search' 
         value={searchInput} 
         onChange={(e) => {
-            setsearchInput(e.target.value); 
+            setsearchInput(e?.target?.value); 
         }}
         />
 
@@ -86,7 +92,22 @@ const Body = () => {
         }}>
           Search
           </button>
+        
+        <button className='p-3 ml-6 my-2 rounded-lg  bg-green-100 hover:bg-green-200'
+        onClick={() => {
+          const filterdList = allRestaurant.filter(
+            (res) => res?.info?.avgRating > 4.4
+          );
+          setFilterRestaurants(filterdList);
+        }}>Top Rated Resturant</button>
 
+        <div className='flex p-2 items-center'>
+          <input type="text" value={logedInUser} 
+          onChange={(e) => SetUserName(e?.target?.value)}
+        
+          className='border border-black p-2'/>
+
+        </div>
        </div>
 
        
@@ -94,9 +115,14 @@ const Body = () => {
       {
         (filterRestaurants?.length) === 0 ? filterlength() :
         filterRestaurants?.map(restaurant => {
+         
+          
           return (  
-        <Link to={"/resturant/" + restaurant.info.id} key={restaurant.info.id} >
-          <ReastaurantCard {...restaurant.info} />
+        <Link to={"/resturant/" + restaurant?.info?.id} key={restaurant?.info?.id} >
+          {
+            restaurant?.info?.aggregatedDiscountInfoV3?.header === "ITEMS" ? (<RestaurantCardPromoted resData={restaurant} />)
+             : (<ReastaurantCard  resData={restaurant}/>)
+          }
           </Link>
           )
        })

@@ -21,8 +21,10 @@ import {RESTAURANT_MENU_URL1, RESTAURANT_MENU_URL2} from "../constant";
         console.log("json->" , json)
        
         setRestaurant(json?.data?.cards[2]?.card?.card?.info)
-        setMenuItem(json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[12]?.card?.card?.itemCards);
-
+        setMenuItem(json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+        
+     
+      
         }
 
         catch (error) {
