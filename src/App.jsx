@@ -11,6 +11,10 @@ import RestaurantMenu from './components/RestauirantMenu';
 import Profile from './components/ProfileClass.jsx';
 import ShimmerLoader from './components/shimmerUI.jsx';
 import UserContext from './utils/UserContext.jsx';
+import { Provider } from 'react-redux';
+import appStore from './utils/Redux/appStore.jsx';
+import Cart from './components/Cart.jsx';
+
 // import Instamart from './components/Instamart.jsx';
 
 //Dynamic Import
@@ -36,6 +40,8 @@ const AppLayout = () => {
   },[])
    
   return ( 
+
+    <Provider store={appStore}>
      <UserContext.Provider value={{logedInUser : userName , SetUserName}}> 
         <div className='app'> 
         <Header/> 
@@ -44,6 +50,7 @@ const AppLayout = () => {
 
         </div>
       </UserContext.Provider>
+      </Provider>
   )
       
 }
@@ -84,12 +91,19 @@ const appRouter = createBrowserRouter(
           errorElement : <Error/>
         },
         {
+          path : '/cart',
+          element : < Cart/>,
+          errorElement : <Error/>
+        },
+        {
           path : "/instamart",
           element : <Suspense fallback={<ShimmerLoader/>}> 
                    <Instamart/> 
                     </Suspense>,
           errorElement : <Error/>
-        }
+        },
+        
+        
        ]
      },
     
